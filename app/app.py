@@ -1,7 +1,7 @@
-# app.py
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS  # Import CORS here
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -17,6 +17,9 @@ def create_app():
     return app
 
 app = create_app()
+
+# Setup CORS after create_app
+CORS(app)
 
 # Define models
 class Restaurant(db.Model):
@@ -107,4 +110,4 @@ def create_restaurant_pizza():
         return jsonify({'errors': [str(e)]}), 400
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
+    app.run(host='0.0.0.0', port=5555, debug=True)
