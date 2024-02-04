@@ -29,10 +29,10 @@ class RestaurantPizza(db.Model):
     price = db.Column(db.Float, nullable=False)
     
     pizza_id = db.Column(db.Integer, db.ForeignKey('pizzas.id'), nullable=False)
-    pizza = db.relationship('Pizza', backref=db.backref('restaurant_pizzas', overlaps="pizzas"))
+    pizza = db.relationship('Pizza', backref=db.backref('restaurant_pizzas'), overlaps="pizzas")
 
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
-    restaurant = db.relationship('Restaurant', backref=db.backref('restaurant_pizzas', overlaps="restaurants"))
+    restaurant = db.relationship('Restaurant', backref=db.backref('restaurant_pizzas'), overlaps="restaurants")
 
     # Validations
     db.CheckConstraint('price >= 1 AND price <= 30', name='check_price_range')
